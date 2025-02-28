@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import Login from './Frontend/components/Login';
-import Register from './Frontend/components/Register';
-import Dashboard from './Frontend/components/Dashboard';
-import PaymentSuccess from './Frontend/components/PaymentSuccess';
-import PaymentCancel from './Frontend/components/PaymentCancel';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Login from './components/Login';
+import Register from './components/Register';
+import Dashboard from './components/Dashboard';
+import PaymentSuccess from './components/PaymentSuccess';
+import PaymentCancel from './components/PaymentCancel';
 import './App.css';
 
 function App() {
@@ -21,26 +21,14 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Switch>
-          <Route exact path="/">
-            {token ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/login">
-            <Login setToken={setToken} />
-          </Route>
-          <Route path="/register">
-            <Register setToken={setToken} />
-          </Route>
-          <Route path="/dashboard">
-            {token ? <Dashboard token={token} setToken={setToken} /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/payment-success">
-            <PaymentSuccess token={token} />
-          </Route>
-          <Route path="/payment-cancel">
-            <PaymentCancel />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/" element={token ? <Navigate to="/dashboard" /> : <Navigate to="/login" />} />
+          <Route path="/login" element={<Login setToken={setToken} />} />
+          <Route path="/register" element={<Register setToken={setToken} />} />
+          <Route path="/dashboard" element={token ? <Dashboard token={token} setToken={setToken} /> : <Navigate to="/login" />} />
+          <Route path="/payment-success" element={<PaymentSuccess token={token} />} />
+          <Route path="/payment-cancel" element={<PaymentCancel />} />
+        </Routes>
       </div>
     </Router>
   );
