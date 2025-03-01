@@ -1,6 +1,7 @@
 // frontend/src/components/Sidebar.js
 import React, { useState, useEffect } from 'react';
-import './Sidebar.css';
+import '../styles/Sidebar.css';  // Updated path
+
 
 const Sidebar = ({ setExamPaper }) => {
   const [examPapers, setExamPapers] = useState([]);

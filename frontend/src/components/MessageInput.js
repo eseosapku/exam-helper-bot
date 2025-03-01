@@ -1,6 +1,6 @@
 // frontend/src/components/MessageInput.js
 import React, { useState } from 'react';
-import './MessageInput.css';
+import '../styles/MessageInput.css';  // Updated path
 
 const MessageInput = ({ token, examPaper, setMessages }) => {
   const [text, setText] = useState('');

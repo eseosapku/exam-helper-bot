@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import MessageInput from './MessageInput';
 import VoiceRecorder from './VoiceRecorder';
-import './ChatWindow.css';
+import '../styles/ChatWindow.css';  // Updated path
 
 const ChatWindow = ({ token }) => {
   const [messages, setMessages] = useState([]);
