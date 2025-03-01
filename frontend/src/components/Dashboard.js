@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/Dashboard.css';
 
@@ -9,7 +9,7 @@ function Dashboard() {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [subscriptionActive, setSubscriptionActive] = useState(false);
-  const history = useHistory();
+  const history = useNavigate();
 
   // Fetch user data and dashboard content
   useEffect(() => {

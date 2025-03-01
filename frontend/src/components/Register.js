@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Auth.css';
 
 function Register({ setToken }) {
@@ -7,7 +7,7 @@ function Register({ setToken }) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const history = useHistory();
+  const history = useNavigate();
   
   const handleSubmit = async (e) => {
     e.preventDefault();

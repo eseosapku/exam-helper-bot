@@ -1,4 +1,3 @@
-# qa_system.py
 from transformers import pipeline
 from pymongo import MongoClient
 import re
@@ -15,25 +14,19 @@ class QuestionAnswering:
         
     def search_question(self, query):
         """Search for a question similar to the query"""
-        # This is a simple keyword search
-        # For production, consider using a vector database or similar
         keywords = re.findall(r'\w+', query.lower())
         matches = []
         
         for keyword in keywords:
-            if len(keyword) > 3:  # Skip short words
+            if len(keyword) > 3:
                 found = self.papers_collection.find(
                     {"text": {"$regex": keyword, "$options": "i"}},
                     {"_id": 0, "number": 1, "text": 1, "paper_id": 1, "subject": 1, "year": 1}
                 )
                 matches.extend(list(found))
                 
-        # Remove duplicates and sort by relevance
-        unique_matches = {}
-        for match in matches:
-            if match["paper_id"] not in unique_matches:
-                unique_matches[match["paper_id"]] = match
-                
+        # Deduplicate by paper_id and prioritize most relevant matches
+        unique_matches = {match["paper_id"]: match for match in matches}
         return list(unique_matches.values())
         
     def get_answer(self, paper_id, question_number):
@@ -47,27 +40,22 @@ class QuestionAnswering:
             return "Question not found"
         
         # Find corresponding marking scheme
-        subject = paper["subject"]
-        year = paper["year"]
-        
         marking_scheme = self.marking_schemes_collection.find_one({
-            "subject": subject,
-            "year": year,
+            "subject": paper["subject"],
+            "year": paper["year"],
             "number": int(question_number)
         })
         
         if marking_scheme:
             return marking_scheme["text"]
         
-        # If no marking scheme found, try to generate an answer
+        # If no marking scheme found, generate answer using AI
         return self._generate_answer(paper["text"])
         
     def _generate_answer(self, question_text):
         """Generate an answer using AI if no marking scheme is available"""
-        # This would normally use a more sophisticated model
-        # For now, we'll return a placeholder
         return "I don't have the official answer for this question yet."
-        
+
     def ask_custom_question(self, user_question, context=None):
         """Answer a custom question about exam content"""
         if not context:

@@ -5,6 +5,8 @@ import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import PaymentSuccess from './components/PaymentSuccess';
 import PaymentCancel from './components/PaymentCancel';
+import ChatWindow from './components/ChatWindow';
+import Sidebar from './components/Sidebar';
 import './App.css';
 
 function App() {
@@ -28,6 +30,7 @@ function App() {
           <Route path="/dashboard" element={token ? <Dashboard token={token} setToken={setToken} /> : <Navigate to="/login" />} />
           <Route path="/payment-success" element={<PaymentSuccess token={token} />} />
           <Route path="/payment-cancel" element={<PaymentCancel />} />
+          <Route path="/chat" element={<ChatWindow token={token} />} />
         </Routes>
       </div>
     </Router>
