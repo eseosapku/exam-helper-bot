@@ -1,0 +1,29 @@
+/* frontend/src/styles/MessageInput.css */
+.message-input {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  .message-input textarea {
+    resize: none;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .message-input input {
+    margin-bottom: 10px;
+  }
+  
+  .message-input button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .message-input button:hover {
+    background-color: #45a049;
+  }
+  
